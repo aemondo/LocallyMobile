@@ -1,20 +1,17 @@
 # Locally
 
 1. `yarn`
-2. open AndroidStudio
+2. `yarn start`
 
-Projet développé par
-Antoine Emond,  
- François Quang Vinh Le,
-Mymanat Mohammed
-et
-Southidej Oudanonh
+###Android (only for first time)
 
-Dans l'optique de réunir des étranger(e)s d'un même voisinage par l'intermédiaire de salles
-de clavardage, nous proposons l'application mobile Locally. Elle permettra aux utilisateurs
-de discuter, de créer et de participer à des événements culturels ensembles, de répérer les
-lieux propices à la relaxation de leur quartier ainsi que de supporter les restaurants
-locaux.
+3. open AndroidStudio
+4. build the app
+5. `yarn adroid`
 
-> Application mobile compatible IOS / Android développée en React Native;
-> Design des fonctionnalités et d'interactions effectué sur Figma.
+###ios (only for first time)
+
+3. `cd ios && pod install`
+4. open app in xcode
+5. build the app
+6. `yarn ios`
