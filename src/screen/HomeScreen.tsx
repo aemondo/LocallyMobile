@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from '../main/components/Button';
-import Label from '../main/components/Label';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { StyleSheet, View } from 'react-native';
+import Map from '../neighborhood/components/Map';
+import useCurrentLocation from '../neighborhood/hooks/useCurrentLocation';
+import useNeighborhood from '../neighborhood/hooks/useNeighborhood';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,19 +16,29 @@ const styles = StyleSheet.create({
   },
 });
 
+const DEFAULT_LAT_DELTA = 0.0922;
+const DEFAULT_LNG_DELTA = 0.04;
+
 function HomeScreen() {
+  const { currentLocation } = useCurrentLocation();
+  const {
+    selectors: { region },
+  } = useNeighborhood(currentLocation ? { location: { latitude: currentLocation.latitude, longitude: currentLocation.longitude } } : {});
+
+  console.log('region', region);
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        mapType='terrain'
-        initialRegion={{
-          latitude: 45.523737,
-          longitude: -73.609671,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+      <Map
+        currentLocation={
+          currentLocation
+            ? {
+                latitude: currentLocation.latitude,
+                longitude: currentLocation.longitude,
+                latitudeDelta: DEFAULT_LAT_DELTA,
+                longitudeDelta: DEFAULT_LNG_DELTA,
+              }
+            : undefined
+        }
       />
     </View>
   );
