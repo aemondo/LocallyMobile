@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Polygon, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import Neighborhood from '../domain/Neighborhood';
+import mapstyle from '../../main/theme/mapstyle.json';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
 
 interface Props {
   currentLocation?: Region;
-  neighborhood?: Polygon;
+  neighborhood?: Neighborhood;
 }
 
 const MONTREAL_CENTER = {
@@ -26,11 +28,12 @@ const MONTREAL_CENTER = {
   longitudeDelta: 0.0421,
 };
 
-const Map: React.FC<Props> = ({ currentLocation }) => {
+const Map: React.FC<Props> = ({ currentLocation, neighborhood }) => {
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
+        customMapStyle={mapstyle}
         provider={PROVIDER_GOOGLE}
         mapType='terrain'
         showsUserLocation
@@ -40,7 +43,7 @@ const Map: React.FC<Props> = ({ currentLocation }) => {
         pitchEnabled={false}
         showsCompass
         rotateEnabled={false}>
-        <Polygon coordinates={[]} />
+        {neighborhood && <Polygon coordinates={neighborhood.limits} />}
       </MapView>
     </View>
   );

@@ -22,13 +22,13 @@ const DEFAULT_LNG_DELTA = 0.04;
 function HomeScreen() {
   const { currentLocation } = useCurrentLocation();
   const {
-    selectors: { region },
+    selectors: { neighborhood },
   } = useNeighborhood(currentLocation ? { location: { latitude: currentLocation.latitude, longitude: currentLocation.longitude } } : {});
 
-  console.log('region', region);
   return (
     <View style={styles.container}>
       <Map
+        neighborhood={neighborhood}
         currentLocation={
           currentLocation
             ? {
